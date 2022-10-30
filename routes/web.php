@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['namespace'=>'App\Http\Controllers'],function($router){
+    $router->get(uri:'/auth',action: 'AuthController@login');
+    $router->post(uri:'/auth',action: 'AuthController@login');
+    $router->get(uri:'/auth/register',action: 'AuthController@register');
+    $router->post(uri:'/auth/register',action: 'AuthController@register');
+});
