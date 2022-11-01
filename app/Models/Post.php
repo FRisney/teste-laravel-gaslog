@@ -9,6 +9,16 @@ class Post extends Model
 {
     use HasFactory;
 
+    public function analyses()
+    {
+        return $this->hasMany(Analysis::class);
+    }
+
+    public function isOwnedBy(User $user)
+    {
+        return $this->user_id == $user->id;
+    }
+
     public static function build($name, $description,User $user){
         $post = new Post();
         $post->name = $name;

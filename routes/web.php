@@ -29,6 +29,9 @@ Route::group(['namespace'=>'App\Http\Controllers'],function($router){
         $router->get('/post/{post}/delete','PostController@delete')->name('post.delete');
         $router->match(['get','post'],'/post/{post}/edit/{operation?}','PostController@edit')->name('post.edit');
 
+        $router->post('/post/{post}/comments', 'AnalysisController@create')->name('analysis.create');
+        $router->get('/post/{post}/comments','AnalysisController@form')->name('analysis.form');
+
         $router->get('/auth/logout',function(Request $request){
             Auth::logout();
             return redirect('/auth');

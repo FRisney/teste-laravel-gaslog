@@ -35,7 +35,7 @@ class PostController extends Controller
 
     public function edit(Request $request, Post $post, string $operation=null)
     {
-        if(Auth::user()->id == $post->user_id){
+        if($post->isOwnedBy(Auth::user())){
             if(!$operation){
                 $post->updateInfo(
                     $request->input('name'),
@@ -52,13 +52,14 @@ class PostController extends Controller
     {
         return view('post.details',[
             'post'=> $post,
-            'isAuthor' => Auth::user()->id == $post->user_id,
+            'isAuthor' => $post->isOwnedBy(Auth::user()),
+            'analyses' => $post->analyses->all(),
         ]);
     }
 
     public function delete(Post $post)
     {
-        if(Auth::user()->id == $post->user_id) {
+        if($post->isOwnedBy(Auth::user())) {
             $post->delete();
         }
         return redirect('/feed');
