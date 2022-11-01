@@ -22,7 +22,10 @@ Route::group(['namespace'=>'App\Http\Controllers'],function($router){
     $router->match(methods:['get','post'],uri:'/auth/register',action: 'AuthController@register');
 
     $router->group(['middleware'=>'auth'],function($router){
-        $router->get(uri:'/feed',action:'PostController@feed')->name('feed');
+        $router->get('/subscriptions', 'SubscriptionController@index')->name('subscriptions');
+        $router->get('/post/{post}/subscribe','SubscriptionController@subscribe')->name('subscribe');
+
+        $router->get('/feed','PostController@feed')->name('feed');
         $router->view('/post', 'post.form')->name('novo');
         $router->post('/post','PostController@create');
         $router->get('/post/{post}','PostController@show')->name('post');

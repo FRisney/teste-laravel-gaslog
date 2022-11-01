@@ -14,22 +14,17 @@
 </head>
 <body>
     <div style="position:absolute;top:0px;right:0px;"><a href="{{ route('logout') }}">Sair</a></div>
-    <h1>Novo Post</h1>
-    <a href="{{route('subscriptions')}}">Seguindo</a>
+    <h1>Seguindo</h1>
     <a href="{{route('feed')}}">Feed</a>
-    <form method="post" action="{{ route('novo') }}">
-        @csrf
-        <div>
-            <div>
-                <label for="name">Nome</label>
-                <input type="text" name="name" id="name"></input>
-            </div>
-            <div>
-                <label for="description">Description</label>
-                <input type="text" name="description" id="description"></input>
-            </div>
-            <button type="submit">Publicar</button>
+    <a href="{{route('novo')}}">Novo Post</a>
+    @foreach($posts as $post)
+        <div
+            style="opacity:{{ $post->closed ? '50%' : '100%' }}"
+        >
+            <a href="{{route('post',[$post->id])}}">#{{$post->id}}</a>
+            <span>{{$post->name}}</span>
+            <span>{{$post->description}}</span>
         </div>
-    </form>
+    @endforeach
 </body>
 </html>

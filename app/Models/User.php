@@ -45,9 +45,14 @@ class User extends Authenticatable
         'last_login' => 'datetime',
     ];
 
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
     /**
-     * @param $login string
-     * @param $password string
+     * @param string $login
+     * @param string $password
      * @return static
      * @throws Exception
      * @throws ItemNotFoundException

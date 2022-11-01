@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Analysis;
 use App\Models\Post;
+use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +27,13 @@ class AnalysisController extends Controller
                 recommends: $request->input('recommends')
             );
             $an->save();
+
+            try{
+                $sub = Subscription::subscribe($post,$user);
+                $sub->save();
+            } catch (QueryException $e){
+                // NADA
+            }
             $request->session()->flash('commentCreated','Recomendação cadastrada com sucesso!');
         }
         return redirect("/post/{$post->id}");

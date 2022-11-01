@@ -15,6 +15,7 @@
 <body>
     <div style="position:absolute;top:0px;right:0px;"><a href="{{ route('logout') }}">Sair</a></div>
     <h1>Feed</h1>
+    <a href="{{route('subscriptions')}}">Seguindo</a>
     <a href="{{route('novo')}}">Novo Post</a>
     @foreach($posts as $post)
         <div
@@ -23,6 +24,7 @@
             <a href="{{route('post',[$post->id])}}">#{{$post->id}}</a>
             <span>{{$post->name}}</span>
             <span>{{$post->description}}</span>
+            <a href="{{ route('subscribe',[$post->id]) }}">Seguir</a>
         </div>
     @endforeach
 </body>

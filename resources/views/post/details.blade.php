@@ -42,7 +42,8 @@
 @endif
 <div style="position:absolute;top:0px;right:0px;"><a href="{{ route('logout') }}">Sair</a></div>
 <h1>Novo Post</h1>
-<a href="{{route('feed')}}">Voltar</a>
+<a href="{{route('subscriptions')}}">Seguindo</a>
+<a href="{{route('feed')}}">Feed</a>
 @if($isAuthor)
     <form method="post" action="{{ route('post.edit',[$post->id]) }}">
         @csrf

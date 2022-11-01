@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,6 +32,12 @@ class PostController extends Controller
             $user
         );
         $post->save();
+        try{
+            $sub = Subscription::subscribe( $post, $user );
+            $sub->save();
+        } catch (QueryException $e){
+            // NADA
+        }
         return redirect('/feed');
     }
 
