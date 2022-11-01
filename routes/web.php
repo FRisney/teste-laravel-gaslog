@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,13 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/','feed');
 
 Route::group(['namespace'=>'App\Http\Controllers'],function($router){
-    $router->get(uri:'/auth',action: 'AuthController@login');
-    $router->post(uri:'/auth',action: 'AuthController@login');
-    $router->get(uri:'/auth/register',action: 'AuthController@register');
-    $router->post(uri:'/auth/register',action: 'AuthController@register');
+    $router->match(methods:['get','post'],uri:'/auth',action: 'AuthController@login')->name('login');
+    $router->match(methods:['get','post'],uri:'/auth/register',action: 'AuthController@register');
+
+    $router->group(['middleware'=>'auth'],function($router){
+        $router->get(uri:'/feed',action:'PostController@feed')->name('feed');
+        $router->view('/post', 'post.form')->name('novo');
+        $router->post('/post','PostController@create');
+        $router->get('/post/{post}','PostController@show')->name('post');
+        $router->get('/post/{post}/delete','PostController@delete')->name('post.delete');
+        $router->match(['get','post'],'/post/{post}/edit/{operation?}','PostController@edit')->name('post.edit');
+
+        $router->get('/auth/logout',function(Request $request){
+            Auth::logout();
+            return redirect('/auth');
+        })->name('logout');
+    });
 });

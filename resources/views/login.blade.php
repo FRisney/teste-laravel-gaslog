@@ -13,6 +13,7 @@
     </style>
 </head>
 <body>
+    <div style="position:absolute;top:0px;right:0px;"><a href="{{ route('logout') }}">Sair</a></div>
     <div style="height: 100vh;display: flex;justify-items: center;align-items: center;justify-content: center;">
         <form action="/auth" method="post" style="max-height: 300px;max-width:300px;align-self: center;display: flex; flex-direction: column">
             @csrf
