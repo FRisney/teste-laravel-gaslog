@@ -10,3 +10,12 @@ serviço WEB para permitir a comunicação com o sistema atravez do navegador.
 
 A unica forma de teste disponível no momento para este sistema é manual, ou seja, será necessário acessar todas 
 as funcionalidades para averiguar seus comportamentos e resultados.
+
+As funcionalidades implementadas são:
+- Cadastro
+- Login
+- Restrição de páginas, apenas quando logado
+- gerenciamento de postagens
+- Somente o autor da postagem é permitido alterar a postagem
+- Enviar Análises para cada Postagem
+- Marcar Postagem como Seguindo, para acompanhar os resultados
